@@ -4,14 +4,55 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using negocio;
+using dominio;
+using System.Runtime.InteropServices;
 
 namespace TP3_ASPNET_Equipo17
 {
     public partial class Detalle : System.Web.UI.Page
     {
+        public List<Imagenes> ListaImagenes { get; set; }
+        public Articulo Articulo { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                int idQuery = Request.QueryString["id"] != null ? int.Parse(Request.QueryString["id"]) : -1;
+                if (idQuery > 0)
+                {
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    Articulo = negocio.buscarPorId(idQuery);
+                    List<Articulo> lista = new List<Articulo>
+                    {
+                        Articulo
+                    };
+                    ImagenesNegocio imagenesNegocio = new ImagenesNegocio();
+                    ListaImagenes = imagenesNegocio.ListaPorId(idQuery);
+                    RepImagesList.DataSource = ListaImagenes;
+                    RepImagesList.DataBind();
+                    mainImageBox.ImageUrl = ListaImagenes[0].ImagenUrl;
 
+                    lblCodigo.Text = Articulo.Codigo;
+                    lblDescripcion.Text= Articulo.Descripcion;
+                    lblMarca.Text = Articulo.Marca.Descripcion;
+                    lblCategoria.Text=Articulo.Categoria.Descripcion;
+                    lblPrecio.Text = Articulo.Precio.ToString();
+                    
+
+                }
+                else
+                {
+
+                }
+            }
+
+
+        }
+
+        protected void boxImagesList_Click(object sender, ImageClickEventArgs e)
+        {
+            mainImageBox.ImageUrl = ((ImageButton)sender).CommandArgument;
         }
     }
 }
