@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -190,6 +191,40 @@ namespace negocio
             {
                 throw ex;
             }
+        }
+
+        public Articulo buscarPorId(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT A.Id AId,Codigo,Nombre,A.Descripcion ADes, A.IdCategoria AIdCate, C.Descripcion CDes, A.IdMarca AIdMarca, M.Descripcion MDes, Precio FROM ARTICULOS A, CATEGORIAS C, MARCAS M WHERE C.Id=A.IdCategoria AND M.Id=A.IdMarca AND A.Id="+id);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                Articulo aux = new Articulo();
+                aux.Id = (int)datos.Lector["AId"];
+                aux.Codigo = (string)datos.Lector["Codigo"];
+                aux.Nombre = (string)datos.Lector["Nombre"];
+                aux.Descripcion = (string)datos.Lector["ADes"];
+                aux.Categoria = new Categoria();
+                aux.Categoria.Id = (int)datos.Lector["AIdCate"];
+                aux.Categoria.Descripcion = (string)datos.Lector["CDes"];
+                aux.Marca = new Marca();
+                aux.Marca.Id = (int)datos.Lector["AIdMarca"];
+                aux.Marca.Descripcion = (string)datos.Lector["MDes"];
+                aux.Precio = (decimal)datos.Lector["Precio"];
+                return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
         }
     }
 }
