@@ -16,43 +16,83 @@ namespace TP3_ASPNET_Equipo17
         public Articulo Articulo { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                int idQuery = Request.QueryString["id"] != null ? int.Parse(Request.QueryString["id"]) : -1;
-                if (idQuery > 0)
+                if (!IsPostBack)
                 {
-                    ArticuloNegocio negocio = new ArticuloNegocio();
-                    Articulo = negocio.buscarPorId(idQuery);
-                    List<Articulo> lista = new List<Articulo>
+                    int idQuery = Request.QueryString["id"] != null ? int.Parse(Request.QueryString["id"]) : -1;
+                    if (idQuery > 0)
                     {
-                        Articulo
-                    };
-                    ImagenesNegocio imagenesNegocio = new ImagenesNegocio();
-                    ListaImagenes = imagenesNegocio.ListaPorId(idQuery);
-                    RepImagesList.DataSource = ListaImagenes;
-                    RepImagesList.DataBind();
-                    mainImageBox.ImageUrl = ListaImagenes[0].ImagenUrl;
+                        ArticuloNegocio negocio = new ArticuloNegocio();
+                        Articulo = negocio.buscarPorId(idQuery);
+                        Session.Add("DetalleArticulo", Articulo);
+                        ImagenesNegocio imagenesNegocio = new ImagenesNegocio();
+                        ListaImagenes = imagenesNegocio.ListaPorId(idQuery);
+                        RepImagesList.DataSource = ListaImagenes;
+                        RepImagesList.DataBind();
+                        mainImageBox.ImageUrl = ListaImagenes[0].ImagenUrl;
 
-                    lblCodigo.Text = Articulo.Codigo;
-                    lblDescripcion.Text= Articulo.Descripcion;
-                    lblMarca.Text = Articulo.Marca.Descripcion;
-                    lblCategoria.Text=Articulo.Categoria.Descripcion;
-                    lblPrecio.Text = Articulo.Precio.ToString();
-                    
-
+                        lblCodigo.Text = Articulo.Codigo;
+                        lblDescripcion.Text = Articulo.Descripcion;
+                        lblMarca.Text = Articulo.Marca.Descripcion;
+                        lblCategoria.Text = Articulo.Categoria.Descripcion;
+                        lblPrecio.Text = Articulo.Precio.ToString();
+                    }
+                    else
+                    {
+                        mainImageBox.Visible = false;
+                    }
                 }
                 else
                 {
-
+                    Articulo = (Articulo)Session["DetalleArticulo"];
                 }
             }
-
-
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex);
+                throw;
+            }        
         }
 
         protected void boxImagesList_Click(object sender, ImageClickEventArgs e)
         {
-            mainImageBox.ImageUrl = ((ImageButton)sender).CommandArgument;
+            try
+            {
+                mainImageBox.ImageUrl = ((ImageButton)sender).CommandArgument;
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex);
+            }
+            
+        }
+
+        protected void btnCarrito_Click(object sender, EventArgs e)
+        {
+            //if (Session["Carrito"] == null)
+            //{
+            //    ClaseCarrito carrito = new ClaseCarrito();
+            //    Session.Add("Carrito", carrito);
+            //}
+            //else
+            //{
+                //Buscar si existe el articulo en el carrito
+                if (!((ClaseCarrito)Session["Carrito"]).ListaArticulo.Exists(x=> x.Id==Articulo.Id))
+                {
+                    //Si no existe, agregarlo
+                    ((ClaseCarrito)Session["Carrito"]).ListaArticulo.Add(Articulo);
+                    lblCarrito.Text = "Articulo " + Articulo.Id.ToString() + " Agregado";
+                }
+                else
+                {
+                    lblCarrito.Text = "Ya existe";
+                }
+                
+            //}
+                
+
+
         }
     }
 }

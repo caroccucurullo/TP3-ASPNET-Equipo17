@@ -14,6 +14,10 @@
             height: 700px;
             object-fit: cover;
         }
+
+        .oculto {
+            display: none !important;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -24,27 +28,23 @@
                 <div class="col-2 d-flex flex-column">
                     <asp:Repeater ID="RepImagesList" runat="server">
                         <ItemTemplate>
-                            <asp:ImageButton ID="boxImagesList" runat="server" CssClass="box" OnClick="boxImagesList_Click" ImageUrl='<%#Eval("ImagenUrl") %>'
-                                CommandArgument='<%#Eval("ImagenUrl") %>' CommandName="ImagenUrlActual" />
+                            <asp:ImageButton ID="boxImagesList" runat="server" CssClass="box" OnClick="boxImagesList_Click" ImageUrl='<%#Eval("ImagenUrl")%>'
+                                CommandArgument='<%#Eval("ImagenUrl") %>' CommandName="ImagenUrlActual" onerror="this.src='https://www.campana.gob.ar/wp-content/uploads/2022/05/placeholder-1.png';" />
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
                 <div class="col">
-                    <asp:Image ID="mainImageBox" runat="server" CssClass="box mainBox" />
+                    <asp:Image ID="mainImageBox" runat="server" CssClass="box mainBox" onerror="this.src='https://www.campana.gob.ar/wp-content/uploads/2022/05/placeholder-1.png';" />
                 </div>
                 <div class="col-2">
                     <%if (Articulo != null)
-                      {
-                    %>  <h2><%:Articulo.Nombre%></h2>
-                    <%
-                      }else
-                      {
+                        {
                     %>
-                        <h2>Sin item</h2>
+                    <h2><%:Articulo.Nombre%></h2>
                     <%
-                      }
+                        }
                     %>
-                    <div class="d-flex">
+                    <div class="<%: Articulo != null ? "d-flex" : "oculto"%>">
                         <div class="d-flex flex-column">
                             <label>Codigo</label>
                             <label>Descripcion</label>
@@ -60,6 +60,8 @@
                             <asp:Label ID="lblPrecio" runat="server"></asp:Label>
                         </div>
                     </div>
+                    <asp:Button ID="btnCarrito" runat="server" Text="Añadir al carrito" CssClass="btn btn-primary" OnClick="btnCarrito_Click"/>
+                    <asp:Label ID="lblCarrito" runat="server" Text=""></asp:Label>
                 </div>
             </div>
         </ContentTemplate>
