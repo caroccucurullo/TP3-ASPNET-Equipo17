@@ -13,5 +13,23 @@ namespace TP3_ASPNET_Equipo17
 
     public partial class Default
     {
+
+        /// <summary>
+        /// Control txtFiltro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltro;
+
+        /// <summary>
+        /// Control divCards.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCards;
     }
 }

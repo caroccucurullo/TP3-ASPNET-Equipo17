@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using dominio;
 using negocio;
@@ -22,9 +24,13 @@ namespace TP3_ASPNET_Equipo17
                 if (!IsPostBack)
                 {
                     ArticuloNegocio negocio = new ArticuloNegocio();
+                    Session.Add("ListaArticulos", negocio.listar());
+
                     ListaArticulos = negocio.listar();
                     //dgvArticulos.DataSource = negocio.listar();
                     //dgvArticulos.DataBind();
+                   // aspRepeater.DataSource = ListaArticulos;
+                   // aspRepeater.DataBind();
 
                     ImagenesNegocio imagenesNegocio = new ImagenesNegocio();
                     List<Imagenes> listaImagenesSql = imagenesNegocio.listar();
@@ -48,6 +54,7 @@ namespace TP3_ASPNET_Equipo17
 
                 }
                 ListaPrimerasImagenes = (List<Imagenes>)Session["PrimerasImagenes"];
+                ListaArticulos = (List<Articulo>)Session["ListaArticulos"];
 
 
             }
@@ -60,5 +67,16 @@ namespace TP3_ASPNET_Equipo17
            
 
         }
+
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> lista = (List<Articulo>)Session["ListaArticulos"];
+            List<Articulo> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+            ListaArticulos = listaFiltrada;
+         
+    
+
+        }
+
     }
 }

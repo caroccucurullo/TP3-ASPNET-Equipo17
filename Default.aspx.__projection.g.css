@@ -1,0 +1,25 @@
+
+/* BEGIN EXTERNAL SOURCE */
+
+        a {
+            text-decoration: none !important;
+        }
+
+            a:hover {
+                transform: scale(1.1);
+                transition: all 1s ease;
+            }
+    
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+div {
+width: 18rem; margin: 10px 15px
+}
+/* END EXTERNAL SOURCE */
+
+/* BEGIN EXTERNAL SOURCE */
+img {
+height: 18rem;
+}
+/* END EXTERNAL SOURCE */
