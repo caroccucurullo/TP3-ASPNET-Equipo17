@@ -36,7 +36,7 @@ namespace TP3_ASPNET_Equipo17
                         lblDescripcion.Text = Articulo.Descripcion;
                         lblMarca.Text = Articulo.Marca.Descripcion;
                         lblCategoria.Text = Articulo.Categoria.Descripcion;
-                        lblPrecio.Text = Articulo.Precio.ToString();
+                        lblPrecio.Text = Articulo.Precio.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("en-US"));
                     }
                     else
                     {
