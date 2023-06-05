@@ -1,15 +1,14 @@
-﻿<%@ page title="" language="C#" masterpagefile="~/MasterPage.Master" autoeventwireup="true" codebehind="Default.aspx.cs" inherits="TP3_ASPNET_Equipo17.Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TP3_ASPNET_Equipo17.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         a {
             text-decoration: none !important;
         }
-
-            a:hover {
-                transform: scale(1.1);
-                transition: all 1s ease;
-            }
+        a:hover {
+            transform: scale(1.1);
+            transition: all 1s ease;
+        }
     </style>
 </asp:Content>
 
@@ -25,33 +24,28 @@
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4" id="divCards" runat="server">
-
-        <% foreach(var item in ListaArticulos) 
-            { 
+    <div class="row row-cols-1 row-cols-md-3 g-4" runat="server">
+        <%if (ListaArticulos != null)
+          {
         %>
-        <a href="Detalle.aspx?id=<%:item.Id.ToString() %>">
-                <div class="card" style="width: 18rem; margin: 10px 15px">
-
-                       <% foreach (var img in ListaPrimerasImagenes) {
-                               if (img?.IdArticulo == item.Id) 
-                               { 
-                        %>
-                    <img style="height: 18rem;" src="<%:img.ImagenUrl %>" class="card-img-top" onerror="this.src='https://www.campana.gob.ar/wp-content/uploads/2022/05/placeholder-1.png';" alt="">
-                        <%
-                                }
-                          }
-                        %>
-                    <div class="card-body">
-                        <h5 class="card-title"><%:item.Nombre %></h5>
-                        <p class="card-text"><%:item.Descripcion %></p>
-                        <p class="card-text"><%:item.Precio.ToString("C2",System.Globalization.CultureInfo.GetCultureInfo("en-US")) %></p>
+             <%for (int i = 0; i < ListaArticulos.Count; i++)
+               {
+             %>
+                <a href="Detalle.aspx?id=<%:ListaArticulos[i].Id.ToString() %>">
+                    <div class="card" style="width: 18rem; margin: 10px 15px">
+                        <img style="height: 18rem;" src="<%: ListaPrimerasImagenes[i] != null ? ListaPrimerasImagenes[i].ImagenUrl : "" %>" class="card-img-top" onerror="this.src='https://www.campana.gob.ar/wp-content/uploads/2022/05/placeholder-1.png';" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title"><%:ListaArticulos[i].Nombre %></h5>
+                            <p class="card-text"><%:ListaArticulos[i].Descripcion %></p>
+                            <p class="card-text"><%:ListaArticulos[i].Precio.ToString("C2",System.Globalization.CultureInfo.GetCultureInfo("en-US")) %></p>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <%
-                }
-            %>
+                </a>
+             <%}%>
+        <%}
+          else 
+          {%>
+            <h2>No se encontraron Articulos en el catalogo.</h2>
+        <%} %>
     </div>
-
 </asp:Content>
