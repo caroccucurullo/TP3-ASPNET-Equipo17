@@ -29,8 +29,8 @@ namespace TP3_ASPNET_Equipo17
                     ListaArticulos = negocio.listar();
                     //dgvArticulos.DataSource = negocio.listar();
                     //dgvArticulos.DataBind();
-                   // aspRepeater.DataSource = ListaArticulos;
-                   // aspRepeater.DataBind();
+                    // aspRepeater.DataSource = ListaArticulos;
+                    // aspRepeater.DataBind();
 
                     ImagenesNegocio imagenesNegocio = new ImagenesNegocio();
                     List<Imagenes> listaImagenesSql = imagenesNegocio.listar();
@@ -46,11 +46,11 @@ namespace TP3_ASPNET_Equipo17
 
                     Session.Add("PrimerasImagenes", ListaPrimerasImagenes);
 
-                    /*if (Session["Carrito"] == null)
+                    if (Session["Carrito"] == null)
                     {
-                        ClaseCarrito carrito = new ClaseCarrito();
+                        Carrito carrito = new Carrito();
                         Session.Add("Carrito", carrito);
-                    }*/
+                    }
 
                 }
                 ListaPrimerasImagenes = (List<Imagenes>)Session["PrimerasImagenes"];

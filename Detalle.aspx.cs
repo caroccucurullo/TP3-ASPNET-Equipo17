@@ -77,20 +77,20 @@ namespace TP3_ASPNET_Equipo17
             //}
             //else
             //{
-                //Buscar si existe el articulo en el carrito
-                if (!((ClaseCarrito)Session["Carrito"]).ListaArticulo.Exists(x=> x.Id==Articulo.Id))
-                {
-                    //Si no existe, agregarlo
-                    ((ClaseCarrito)Session["Carrito"]).ListaArticulo.Add(Articulo);
-                    lblCarrito.Text = "Articulo " + Articulo.Id.ToString() + " Agregado";
-                }
-                else
-                {
-                    lblCarrito.Text = "Ya existe";
-                }
-                
+            //Buscar si existe el articulo en el carrito
+            if (!((Carrito)Session["Carrito"]).ListaArticulos.Exists(x => x.Id == Articulo.Id))
+            {
+                //Si no existe, agregarlo
+                ((Carrito)Session["Carrito"]).ListaArticulos.Add(Articulo);
+                lblCarrito.Text = "Articulo " + Articulo.Id.ToString() + " Agregado";
+            }
+            else
+            {
+                lblCarrito.Text = "Ya existe";
+            }
+
             //}
-                
+
 
 
         }

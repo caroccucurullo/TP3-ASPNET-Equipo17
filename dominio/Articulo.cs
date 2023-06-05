@@ -20,5 +20,7 @@ namespace dominio
         public Categoria Categoria { get; set; }
         public decimal Precio { get; set; }
 
+        public int cantidad { get; set; }
+
     }
 }
