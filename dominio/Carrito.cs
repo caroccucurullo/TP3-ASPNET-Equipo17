@@ -15,31 +15,14 @@ namespace dominio
             ListaArticulos = new List<Articulo>();
         }
 
-        public void Agregar(Articulo art)
+        public string precioTotal()
         {
-            ListaArticulos.Add(art);
-        }
-
-        public void Eliminar(Articulo art)
-        {
-            ListaArticulos.Remove(art);
-        }
-
-        public decimal Total()
-        {
-            decimal total = 0;
+            decimal precioTotal = 0;
             foreach (var item in ListaArticulos)
             {
-                total += item.Precio;
+                precioTotal += item.Cantidad * item.Precio;
             }
-            return total;
+            return precioTotal.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("en-US"));
         }
-
-        public void Vaciar()
-        {
-            ListaArticulos.Clear();
-        }
-
-
     }
 }
