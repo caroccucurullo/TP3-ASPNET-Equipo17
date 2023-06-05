@@ -2,10 +2,14 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="es">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
+    <meta name="description" content="TP n3 ASP.NET de Programacion 3, UTN"/>
+    <meta name="author" content="Cucurullo Carolina, Dinarte Bernardo, Nieva Gustavo"/>
+    <meta name="keywords" content="C#, ASP.NET, .NET 4.8"/>
+    <title>TP-ASP-E17</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -37,27 +41,22 @@
                                 </li>
                             </ul>
                         </div>
-                        <div>
-                            <%--LABEL CONTADOR PARA EL CARRITO--%>
-                            <a href="CarritoPag.aspx"><asp:Label ID="lblCarritoContador" runat="server" CssClass="Letra_Blanco" Text=""></asp:Label></a>
-             
+                        <div class="d-flex">
                             <a class="icon-link" href="CarritoPag.aspx"><img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png" /></a>
+                            <a href="CarritoPag.aspx"><asp:Label ID="lblCarritoContador" runat="server" CssClass="Letra_Blanco" Text=""></asp:Label></a>
                        </div>
 
                     </div>
                 </nav>
             </div>
-         
             <div class="container">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                    
                 </asp:ContentPlaceHolder>
             </div>
-
             <div>
                  <footer class="text-bg-dark p-3 text-center fw-medium">Cucurullo - Dinarte - Nieva | Programación III 2023</footer>
             </div>
-
         </div>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

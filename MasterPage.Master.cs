@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,8 @@ namespace TP3_ASPNET_Equipo17
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Carrito"] != null)
+                lblCarritoContador.Text = ((Carrito)Session["Carrito"]).ListaArticulos.Count.ToString();
         }
     }
 }
