@@ -8,60 +8,69 @@ using System.Web.UI.WebControls;
 
 namespace TP3_ASPNET_Equipo17
 {
-    public partial class Carrito : System.Web.UI.Page
+    public partial class CarritoPag : System.Web.UI.Page
     {
+        public string PrecioTotal { get; set; }
+        public Carrito PropCarrito { get; set; }
+        public bool CarritoVacio { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-
 			try
 			{
+                PropCarrito = (Carrito)Session["Carrito"];
                 if (!IsPostBack)
                 {
-                    repCarrito.DataSource = ((Carrito)Session["Carrito"]).ListaArticulos;
+
+                    if (PropCarrito.ListaArticulos.Count > 0)
+                    {
+                        CarritoVacio = false;
+                        lblPrecioFinal.Text = PropCarrito.precioTotal();
+                    }
+                    else
+                    {
+                        CarritoVacio = true;
+                        lblPrecioFinal.Visible = false;
+                    }
+                    repCarrito.DataSource = PropCarrito.ListaArticulos;
                     repCarrito.DataBind();
                 }
-
-
             }
 			catch (Exception ex)
 			{
 				Session.Add("Error", ex);
 				throw;
 			}
-
         }
 
         protected void btnMenos_Click(object sender, EventArgs e)
         {
             int id = int.Parse(((Button)sender).CommandArgument);
-            foreach (var item in ((Carrito)Session["Carrito"]).ListaArticulos)
+            foreach (var item in PropCarrito.ListaArticulos)
             {
                 if (item.Id == id)
                 {
-                    if (item.Cantidad == 0)
+                    if (item.Cantidad >= 2)
                     {
-                        item.Cantidad = 0;
-                        return;
+                        item.Cantidad--;
+                        repCarrito.DataSource = PropCarrito.ListaArticulos;
+                        repCarrito.DataBind();
+                        lblPrecioFinal.Text = PropCarrito.precioTotal();
                     }
-                    item.Cantidad--;
-                    repCarrito.DataSource = ((Carrito)Session["Carrito"]).ListaArticulos;
-                    repCarrito.DataBind();
-                }
-                    
+                }     
             }
-            
         }
 
         protected void btnMas_Click(object sender, EventArgs e)
         {
             int id = int.Parse(((Button)sender).CommandArgument);
-            foreach (var item in ((Carrito)Session["Carrito"]).ListaArticulos)
+            foreach (var item in PropCarrito.ListaArticulos)
             {
                 if (item.Id == id)
                 {
                     item.Cantidad++;
-                    repCarrito.DataSource = ((Carrito)Session["Carrito"]).ListaArticulos;
+                    repCarrito.DataSource = PropCarrito.ListaArticulos;
                     repCarrito.DataBind();
+                    lblPrecioFinal.Text = PropCarrito.precioTotal();
                 }
             }
         }
@@ -69,15 +78,21 @@ namespace TP3_ASPNET_Equipo17
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
             int id = int.Parse(((Button)sender).CommandArgument);
-            //foreach (var item in ((Carrito)Session["Carrito"]).ListaArticulo)
-            for(int x=0;x < ((Carrito)Session["Carrito"]).ListaArticulos.Count;x++)
+            for(int x=0;x < PropCarrito.ListaArticulos.Count;x++)
             {
-                if (((Carrito)Session["Carrito"]).ListaArticulos[x].Id == id)
+                if (PropCarrito.ListaArticulos[x].Id == id)
                 {
-                    ((Carrito)Session["Carrito"]).ListaArticulos.Remove(((Carrito)Session["Carrito"]).ListaArticulo[x]);
-                    repCarrito.DataSource = ((Carrito)Session["Carrito"]).ListaArticulos;
+                    PropCarrito.ListaArticulos.Remove(PropCarrito.ListaArticulos[x]);
+                    repCarrito.DataSource = PropCarrito.ListaArticulos;
                     repCarrito.DataBind();
+                    lblPrecioFinal.Text = PropCarrito.precioTotal();
                 }
+            }
+            if (PropCarrito.ListaArticulos.Count == 0)
+            {
+                CarritoVacio = true;
+                lblPrecioFinal.Visible = false;
+                Response.Redirect("CarritoPag.aspx");
             }
         }
     }

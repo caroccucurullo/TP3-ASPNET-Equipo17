@@ -11,7 +11,7 @@ namespace TP3_ASPNET_Equipo17
 {
 
 
-    public partial class Carrito
+    public partial class CarritoPag
     {
 
         /// <summary>
@@ -31,5 +31,14 @@ namespace TP3_ASPNET_Equipo17
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater repCarrito;
+
+        /// <summary>
+        /// Control lblPrecioFinal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPrecioFinal;
     }
 }
