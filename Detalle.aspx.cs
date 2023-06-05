@@ -31,7 +31,6 @@ namespace TP3_ASPNET_Equipo17
                         RepImagesList.DataSource = ListaImagenes;
                         RepImagesList.DataBind();
                         mainImageBox.ImageUrl = ListaImagenes[0].ImagenUrl;
-
                         lblCodigo.Text = Articulo.Codigo;
                         lblDescripcion.Text = Articulo.Descripcion;
                         lblMarca.Text = Articulo.Marca.Descripcion;
@@ -65,22 +64,13 @@ namespace TP3_ASPNET_Equipo17
             {
                 Session.Add("Error", ex);
             }
-            
         }
 
         protected void btnCarrito_Click(object sender, EventArgs e)
         {
-            //if (Session["Carrito"] == null)
-            //{
-            //    ClaseCarrito carrito = new ClaseCarrito();
-            //    Session.Add("Carrito", carrito);
-            //}
-            //else
-            //{
-            //Buscar si existe el articulo en el carrito
             if (!((Carrito)Session["Carrito"]).ListaArticulos.Exists(x => x.Id == Articulo.Id))
             {
-                //Si no existe, agregarlo
+                Articulo.Cantidad = 1;
                 ((Carrito)Session["Carrito"]).ListaArticulos.Add(Articulo);
                 lblCarrito.Text = "Articulo " + Articulo.Id.ToString() + " Agregado";
             }
@@ -88,11 +78,6 @@ namespace TP3_ASPNET_Equipo17
             {
                 lblCarrito.Text = "Ya existe";
             }
-
-            //}
-
-
-
         }
     }
 }
