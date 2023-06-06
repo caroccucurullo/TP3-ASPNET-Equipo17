@@ -25,12 +25,15 @@ namespace TP3_ASPNET_Equipo17
                     {
                         CarritoVacio = false;
                         lblPrecioFinal.Text = PropCarrito.precioTotal();
+                        
                     }
                     else
                     {
                         CarritoVacio = true;
                         lblPrecioFinal.Visible = false;
                     }
+                    repImagenes.DataSource = PropCarrito.ListaImagenes;
+                    repImagenes.DataBind();
                     repCarrito.DataSource = PropCarrito.ListaArticulos;
                     repCarrito.DataBind();
                 }
@@ -83,6 +86,9 @@ namespace TP3_ASPNET_Equipo17
                 if (PropCarrito.ListaArticulos[x].Id == id)
                 {
                     PropCarrito.ListaArticulos.Remove(PropCarrito.ListaArticulos[x]);
+                    PropCarrito.ListaImagenes.Remove(PropCarrito.ListaImagenes[x]);
+                    repImagenes.DataSource = PropCarrito.ListaImagenes;
+                    repImagenes.DataBind();
                     repCarrito.DataSource = PropCarrito.ListaArticulos;
                     repCarrito.DataBind();
                     lblPrecioFinal.Text = PropCarrito.precioTotal();
