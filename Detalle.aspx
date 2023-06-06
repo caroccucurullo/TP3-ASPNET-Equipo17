@@ -24,7 +24,7 @@
     <asp:ScriptManager runat="server" ID="ScriptManager1" />
     <asp:UpdatePanel runat="server" CssClass="d-flex">
         <ContentTemplate>
-            <div class="row d-flex">
+            <div class="row d-flex mb-5 mt-5">
                 <div class="col-2 d-flex flex-column">
                     <asp:Repeater ID="RepImagesList" runat="server">
                         <ItemTemplate>
