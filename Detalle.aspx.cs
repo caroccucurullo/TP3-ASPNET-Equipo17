@@ -45,6 +45,7 @@ namespace TP3_ASPNET_Equipo17
                 else
                 {
                     Articulo = (Articulo)Session["DetalleArticulo"];
+                    ListaImagenes = (List<Imagenes>)Session["PrimerasImagenes"];
                 }
             }
             catch (Exception ex)
@@ -72,6 +73,7 @@ namespace TP3_ASPNET_Equipo17
             {
                 Articulo.Cantidad = 1;
                 ((Carrito)Session["Carrito"]).ListaArticulos.Add(Articulo);
+                ((Carrito)Session["Carrito"]).ListaImagenes.Add(ListaImagenes.Find(x => x.IdArticulo == Articulo.Id));
                 lblCarrito.Text = "Articulo " + Articulo.Id.ToString() + " Agregado";
             }
             else
