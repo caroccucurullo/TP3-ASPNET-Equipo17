@@ -27,9 +27,21 @@ namespace TP3_ASPNET_Equipo17
                     ImagenesNegocio imagenesNegocio = new ImagenesNegocio();
                     List<Imagenes> listaImagenesSql = imagenesNegocio.listar();
                     ListaPrimerasImagenes = new List<Imagenes>();
+                    Imagenes img;
                     foreach (Articulo item in ListaArticulos)
                     {
-                        ListaPrimerasImagenes.Add(listaImagenesSql.Find(x => x.IdArticulo == item.Id));
+                        img = listaImagenesSql.Find(x => x.IdArticulo == item.Id);
+                        if(img != null)
+                            ListaPrimerasImagenes.Add(img);
+                        else
+                        {
+                            img = new Imagenes()
+                            {
+                                IdArticulo = item.Id,
+                                ImagenUrl = "https://www.campana.gob.ar/wp-content/uploads/2022/05/placeholder-1.png"
+                            };
+                            ListaPrimerasImagenes.Add(img);
+                        }
                     }
                     Session.Add("ListaArticulos", ListaArticulos);
                     Session.Add("PrimerasImagenes", ListaPrimerasImagenes);
