@@ -14,6 +14,7 @@ namespace TP3_ASPNET_Equipo17
     {
         public List<Imagenes> ListaImagenes { get; set; }
         public Articulo Articulo { get; set; }
+        public bool DetalleVacio { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -36,10 +37,13 @@ namespace TP3_ASPNET_Equipo17
                         lblMarca.Text = Articulo.Marca.Descripcion;
                         lblCategoria.Text = Articulo.Categoria.Descripcion;
                         lblPrecio.Text = Articulo.Precio.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                        DetalleVacio = false;
                     }
                     else
                     {
                         mainImageBox.Visible = false;
+                        btnCarrito.Visible = false;
+                        DetalleVacio = true;
                     }
                 }
                 else

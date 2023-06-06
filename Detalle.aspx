@@ -21,6 +21,13 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <%if (DetalleVacio)
+        { %>
+    <h2>NO SELECCIONASTE ARTICULO. ERROR.</h2>
+    <a href="Default.aspx" class="btn btn-primary">Home</a>
+    <%}
+        else
+        { %>
     <asp:ScriptManager runat="server" ID="ScriptManager1" />
     <asp:UpdatePanel runat="server" CssClass="d-flex">
         <ContentTemplate>
@@ -60,10 +67,11 @@
                             <asp:Label ID="lblPrecio" runat="server"></asp:Label>
                         </div>
                     </div>
-                    <asp:Button ID="btnCarrito" runat="server" Text="Añadir al carrito" CssClass="btn btn-primary" OnClick="btnCarrito_Click"/>
+                    <asp:Button ID="btnCarrito" runat="server" Text="Añadir al carrito" CssClass="btn btn-primary" OnClick="btnCarrito_Click" />
                     <asp:Label ID="lblCarrito" runat="server" Text=""></asp:Label>
                 </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <%}%>
 </asp:Content>
