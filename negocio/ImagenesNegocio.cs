@@ -92,6 +92,15 @@ namespace negocio
                     aux.ImagenUrl = (string)datos.Lector["ImagenUrl"];
                     listaImagenes.Add(aux);
                 }
+                if (listaImagenes.Count == 0)
+                {
+                    Imagenes img = new Imagenes()
+                    {
+                        IdArticulo = id,
+                        ImagenUrl = "https://www.campana.gob.ar/wp-content/uploads/2022/05/placeholder-1.png"
+                    };
+                    listaImagenes.Add(img);
+                }
                 return listaImagenes;
             }
             catch (Exception ex)

@@ -10,9 +10,12 @@ namespace dominio
     {
         public List<Articulo> ListaArticulos { get; set; }
 
+        public List<Imagenes> ListaImagenes { get; set; }
+
         public Carrito()
         {
             ListaArticulos = new List<Articulo>();
+            ListaImagenes = new List<Imagenes>();
         }
 
         public string precioTotal()
